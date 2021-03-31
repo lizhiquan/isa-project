@@ -4,7 +4,11 @@ module.exports = {
   development: {
     client: 'mysql2',
     connection: {
-      connectionString: 'mysql://root:secret@localhost:3306/isa',
+      host: 'localhost',
+      port: '3306',
+      user: 'root',
+      password: 'secret',
+      database: 'isa',
     },
     migrations: {
       tableName: 'migrations',

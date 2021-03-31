@@ -1,5 +1,5 @@
 const router = require('express').Router();
 
-router.use('/chores', require('./chores'));
+router.use('/users', require('./users'));
 
 module.exports = router;

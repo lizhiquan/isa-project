@@ -1,6 +1,8 @@
 const config = require('./config');
 const express = require('express');
 const cors = require('cors');
+const { ValidationError } = require('express-validation');
+
 const app = express();
 
 const corsOptions = config.corsDomain && {
@@ -11,6 +13,15 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use('/api', require('./routes'));
+
+app.use((err, req, res, next) => {
+  if (err instanceof ValidationError) {
+    return res.status(err.statusCode).json(err);
+  }
+
+  console.error(err);
+  return res.status(500).json(err);
+});
 
 const server = app.listen(config.port, function () {
   console.log('Listening on port ' + server.address().port);
