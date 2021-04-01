@@ -5,7 +5,12 @@ const { validate, Joi } = require('express-validation');
 
 router.get('/', async (req, res, next) => {
   try {
-    const rows = await db('homework');
+    const rows = await db('homework').modify((queryBuilder) => {
+      const course_id = req.query.course_id;
+      if (course_id) {
+        queryBuilder.where({ course_id });
+      }
+    });
     res.json(rows);
   } catch (error) {
     next(error);
