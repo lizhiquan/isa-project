@@ -5,18 +5,16 @@ const db = require('../../db');
 const { validate, Joi } = require('express-validation');
 const { secret, tokenExpiresInHours } = require('../../config');
 
-const loginValidation = {
-  body: Joi.object({
-    username: Joi.string()
-      .regex(/^\S*$/) // a string consisting only of non-whitespaces
-      .required(),
-    password: Joi.string().required(),
-  }),
-};
-
 router.post(
   '/authenticate',
-  validate(loginValidation),
+  validate({
+    body: Joi.object({
+      username: Joi.string()
+        .regex(/^\S*$/) // a string consisting only of non-whitespaces
+        .required(),
+      password: Joi.string().required(),
+    }),
+  }),
   async (req, res, next) => {
     try {
       const { username, password } = req.body;
