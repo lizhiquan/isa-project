@@ -55,10 +55,10 @@ router.put(
   async (req, res, next) => {
     try {
       const { name, content, type, due_date, course_id } = req.body;
-      await db('homework')
+      const nAffectedRows = await db('homework')
         .where({ id: req.params.id })
         .update({ name, content, type, due_date, course_id });
-      res.sendStatus(204);
+      res.sendStatus(nAffectedRows ? 204 : 404);
     } catch (error) {
       next(error);
     }
@@ -67,8 +67,10 @@ router.put(
 
 router.delete('/:id', auth.required, async (req, res, next) => {
   try {
-    await db('homework').where({ id: req.params.id }).del();
-    res.sendStatus(204);
+    const nAffectedRows = await db('homework')
+      .where({ id: req.params.id })
+      .del();
+    res.sendStatus(nAffectedRows ? 204 : 404);
   } catch (error) {
     next(error);
   }

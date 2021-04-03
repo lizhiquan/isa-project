@@ -43,10 +43,10 @@ router.put(
   }),
   async (req, res, next) => {
     try {
-      await db('course')
+      const nAffectedRows = await db('course')
         .where({ id: req.params.id })
         .update({ code: req.body.code, name: req.body.name });
-      res.sendStatus(204);
+      res.sendStatus(nAffectedRows ? 204 : 404);
     } catch (error) {
       next(error);
     }
@@ -55,8 +55,8 @@ router.put(
 
 router.delete('/:id', auth.required, async (req, res, next) => {
   try {
-    await db('course').where({ id: req.params.id }).del();
-    res.sendStatus(204);
+    const nAffectedRows = await db('course').where({ id: req.params.id }).del();
+    res.sendStatus(nAffectedRows ? 204 : 404);
   } catch (error) {
     next(error);
   }
