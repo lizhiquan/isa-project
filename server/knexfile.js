@@ -1,4 +1,4 @@
-const dbConnectionString = require('./config').dbConnectionString;
+const config = require('./config');
 
 module.exports = {
   development: {
@@ -20,7 +20,11 @@ module.exports = {
   production: {
     client: 'mysql2',
     connection: {
-      connectionString: dbConnectionString,
+      host: config.dbHost,
+      port: config.dbPort,
+      user: config.dbUsername,
+      password: config.dbPassword,
+      database: config.dbName,
     },
     pool: {
       min: 2,
