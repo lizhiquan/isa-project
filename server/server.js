@@ -17,7 +17,7 @@ app.use('/api', require('./routes'));
 
 app.use((err, req, res, next) => {
   if (err instanceof ValidationError) {
-    return res.status(err.statusCode).json(err);
+    return res.status(422).json(err);
   }
 
   if (err instanceof UnauthorizedError) {
