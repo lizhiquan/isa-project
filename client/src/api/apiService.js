@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {SERVER_URL} from "../constants";
 
 const apiService = axios.create({
-	baseURL: 'http://localhost:8000',
+	baseURL: SERVER_URL,
 });
 
 export async function loginUser(userInfo) {
@@ -15,7 +16,6 @@ export async function createCourse(courseInfo) {
 	const res = await apiService.post(queryPath, courseInfo, {
 		headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
 	});
-	console.log(res.data);
 	return res.data;
 }
 
@@ -26,7 +26,6 @@ export async function getCourses() {
 }
 
 export async function createHomework(homeworkInfo) {
-	console.log(homeworkInfo);
 	const queryPath = '/api/v1/homework';
 	const res = await apiService.post(queryPath, homeworkInfo, {
 		headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
