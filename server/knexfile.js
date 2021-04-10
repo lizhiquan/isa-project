@@ -1,15 +1,9 @@
-const config = require('./config');
+const {dbURL} = require('./config');
 
 module.exports = {
   development: {
     client: 'mysql2',
-    connection: {
-      host: 'localhost',
-      port: '3306',
-      user: 'root',
-      password: 'secret',
-      database: 'isa',
-    },
+    connection: 'mysql://root:secret@localhost:3306/isa',
     migrations: {
       tableName: 'migrations',
       directory: './db/migrations',
@@ -19,13 +13,7 @@ module.exports = {
 
   production: {
     client: 'mysql2',
-    connection: {
-      host: config.dbHost,
-      port: config.dbPort,
-      user: config.dbUsername,
-      password: config.dbPassword,
-      database: config.dbName,
-    },
+    connection: dbURL,
     pool: {
       min: 2,
       max: 10,
