@@ -70,3 +70,9 @@ export async function getHomework() {
   const res = await apiService.get(queryPath);
   return res.data;
 }
+
+export async function getStats() {
+  const queryPath = '/api/v1/stats';
+  const res = await apiService.get(queryPath);
+  return res.data;
+}
