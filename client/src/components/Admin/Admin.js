@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { createCourse } from '../../api/apiService';
 import CreateCourse from '../Course/CreateCourse';
