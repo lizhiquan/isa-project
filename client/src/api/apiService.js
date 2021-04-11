@@ -34,7 +34,6 @@ export async function createHomework(homeworkInfo) {
 }
 
 export async function updateHomework(homeworkInfo, homeworkID) {
-  console.log('HOMEWORK', homeworkInfo);
   const queryPath = `/api/v1/homework/${homeworkID}`;
   const res = await apiService.put(queryPath, homeworkInfo, {
     headers: { Authorization: `Bearer ${getToken()}` },
