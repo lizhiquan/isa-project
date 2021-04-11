@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    fontSize: '3vw',
+  },
+  tabs: {
+    fontSize: '2vw',
   },
 }));
 
@@ -23,25 +27,25 @@ export default function NavBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="relative">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu"></IconButton>
           <Typography variant="h6" className={classes.title}>
             Homework Manager
           </Typography>
-          <Button color="inherit" onClick={() => (window.location.href = '/stats')}>
+          <Button className={classes.tabs} color="inherit" onClick={() => (window.location.href = '/stats')}>
             Statistics
           </Button>
-          <Button color="inherit" onClick={() => (window.location.href = '/courses')}>
+          <Button className={classes.tabs} color="inherit" onClick={() => (window.location.href = '/courses')}>
             Courses
           </Button>
-          <Button color="inherit" onClick={() => (window.location.href = '/')}>
+          <Button className={classes.tabs} color="inherit" onClick={() => (window.location.href = '/')}>
             Homework
           </Button>
-          <Button color="inherit" onClick={() => (window.location.href = '/admin')}>
+          <Button className={classes.tabs} color="inherit" onClick={() => (window.location.href = '/admin')}>
             Admin
           </Button>
           <Button
+            className={classes.tabs}
             color="inherit"
             onClick={() => {
               localStorage.setItem('token', '');

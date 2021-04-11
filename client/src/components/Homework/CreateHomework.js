@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     height: '50px',
   },
   paper: {
-    minWidth: '500px',
+    minWidth: '250px',
     margin: theme.spacing(8, 8),
     display: 'flex',
     flexDirection: 'column',

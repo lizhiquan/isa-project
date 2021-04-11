@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '0',
   },
   grid: {
-    minWidth: '500px',
+    minWidth: '250px',
     margin: theme.spacing(8, 8),
     display: 'flex',
     flexDirection: 'column',
