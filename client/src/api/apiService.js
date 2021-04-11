@@ -73,6 +73,8 @@ export async function getHomework() {
 
 export async function getStats() {
   const queryPath = '/api/v1/stats';
-  const res = await apiService.get(queryPath);
+  const res = await apiService.get(queryPath, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
   return res.data;
 }

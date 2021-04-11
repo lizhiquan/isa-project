@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Stats() {
   const classes = useStyles();
-  const url = window.location.href;
   const [stats, setStats] = useState();
 
   const handleGetStats = async () => {
     try {
-      const res = await getStats;
+      const res = await getStats();
       setStats(res);
     } catch (error) {
       console.log(error);
@@ -41,52 +40,21 @@ export default function Stats() {
   useEffect(() => {
     handleGetStats();
   }, []);
+
   return (
     <Container className={classes.container}>
-      <Grid className={classes.grid} item md={12}>
-        <Typography component="h4" variant="h4">
-          Login
-        </Typography>
-        <Typography component="h5" variant="h5">
-          POST - {url}/api/v1/users/authenticate - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-      </Grid>
-
-      <Grid className={classes.grid} item md={12}>
-        <Typography component="h4" variant="h4">
-          Homework
-        </Typography>
-        <Typography component="h5" variant="h5">
-          POST - {url}/api/v1/courses - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          GET - {url}/api/v1/courses - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          PUT - {url}/api/v1/courses/:id - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          DELETE - {url}/api/v1/courses/:id - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-      </Grid>
-
-      <Grid className={classes.grid} item md={12}>
-        <Typography component="h4" variant="h4">
-          Homework
-        </Typography>
-        <Typography component="h5" variant="h5">
-          POST - {url}/api/v1/homework - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          GET - {url}/api/v1/homework - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          PUT - {url}/api/v1/homework/:id - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-        <Typography component="h5" variant="h5">
-          DELETE - {url}/api/v1/homework/:id - <span className={classes.requests}>REQUEST TIMES</span>
-        </Typography>
-      </Grid>
+      {stats?.map((stat) => {
+        return (
+          <Grid className={classes.grid} item md={12}>
+            <Typography component="h5" variant="h5">
+              {stat.method}
+            </Typography>
+            <Typography component="h5" variant="h5">
+              {stat.endpoint} - <span className={classes.requests}>{stat.count} Requests</span>
+            </Typography>
+          </Grid>
+        );
+      })}
     </Container>
   );
 }
