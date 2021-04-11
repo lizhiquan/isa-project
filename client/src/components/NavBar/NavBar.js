@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
+import { getToken } from '../../utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -44,16 +44,18 @@ export default function NavBar() {
           <Button className={classes.tabs} color="inherit" onClick={() => (window.location.href = '/admin')}>
             Admin
           </Button>
-          <Button
-            className={classes.tabs}
-            color="inherit"
-            onClick={() => {
-              localStorage.setItem('token', '');
-              window.location.href = '/login';
-            }}
-          >
-            Logout
-          </Button>
+          {getToken() ? (
+            <Button
+              className={classes.tabs}
+              color="inherit"
+              onClick={() => {
+                localStorage.setItem('token', '');
+                window.location.href = '/login';
+              }}
+            >
+              Logout
+            </Button>
+          ) : null}
         </Toolbar>
       </AppBar>
     </div>
