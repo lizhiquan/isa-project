@@ -3,6 +3,7 @@ import { Grid, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { updateCourse, deleteCourse } from '../../api/apiService';
+import { checkInvalidToken } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -32,6 +33,7 @@ export default function HomeworkItem({ isAdmin, courses, course, onChangeCourse 
       alert('Course Succesfully Updated');
     } catch (error) {
       console.log(error);
+      checkInvalidToken(error.response.status);
       alert('Error: course not updated');
     }
   };

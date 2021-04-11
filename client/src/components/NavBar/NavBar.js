@@ -41,6 +41,15 @@ export default function NavBar() {
           <Button color="inherit" onClick={() => (window.location.href = '/admin')}>
             Admin
           </Button>
+          <Button
+            color="inherit"
+            onClick={() => {
+              localStorage.setItem('token', '');
+              window.location.href = '/Login';
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </div>

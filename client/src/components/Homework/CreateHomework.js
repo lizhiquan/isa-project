@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { createHomework } from '../../api/apiService';
+import { checkInvalidToken } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -45,6 +46,7 @@ export default function CreateHomework({ courses }) {
       alert('Created homework successfully');
     } catch (error) {
       console.log(error);
+      checkInvalidToken(error.response.status);
       alert('Error: Unable to create homework');
     }
   };

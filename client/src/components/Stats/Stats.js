@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { getStats } from '../../api/apiService';
+import { checkInvalidToken } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -33,6 +34,7 @@ export default function Stats() {
       const res = await getStats();
       setStats(res);
     } catch (error) {
+      checkInvalidToken(error.response.status);
       console.log(error);
     }
   };

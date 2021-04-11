@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { updateHomework, deleteHomework } from '../../api/apiService';
+import { checkInvalidToken } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   select: {
@@ -47,6 +48,7 @@ export default function HomeworkItem({
       alert('Homework updated sucessfully');
     } catch (error) {
       console.log(error);
+      checkInvalidToken(error.response.status);
       alert('Error: Homework update failed');
     }
   };
@@ -60,6 +62,7 @@ export default function HomeworkItem({
       onUpdateHomeworkList([...updatedHomeworkList]);
       onDeleteHomework('');
     } catch (error) {
+      checkInvalidToken(error.response.status);
       console.log(error);
     }
   };
