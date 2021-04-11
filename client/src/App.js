@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 
 import HomeworkList from './components/Homework/HomeworkList';
 import Signin from './components/Signin/Signin';
+import CourseList from './components/Course/CourseList';
 import Admin from './components/Admin/Admin';
 import NavBar from './components/NavBar/NavBar';
 import { getCourses, getHomework } from './api/apiService';
@@ -60,6 +61,7 @@ function App() {
               />
             )}
           />
+          <Route exact path={'/courses'} render={() => <CourseList isAdmin={isAdmin} courses={courses} />} />
           <Route exact path={'/login'} render={() => <Signin onIsAdmin={setIsAdmin} />} />
           {isAdmin ? (
             <Route
