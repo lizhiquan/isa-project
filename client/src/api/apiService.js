@@ -49,6 +49,22 @@ export async function deleteHomework(homeworkID) {
   return res.data;
 }
 
+export async function updateCourse(courseInfo, courseID) {
+  const queryPath = `/api/v1/courses/${courseID}`;
+  const res = await apiService.put(queryPath, courseInfo, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  return res.data;
+}
+
+export async function deleteCourse(courseID) {
+  const queryPath = `/api/v1/courses/${courseID}`;
+  const res = await apiService.delete(queryPath, {
+    headers: { Authorization: `Bearer ${getToken()}` },
+  });
+  return res.data;
+}
+
 export async function getHomework() {
   const queryPath = '/api/v1/homework';
   const res = await apiService.get(queryPath);
