@@ -13,6 +13,7 @@ const corsOptions = config.corsDomain && {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+app.use(require('./middlewares/stat'));
 app.use('/api', require('./routes'));
 
 app.use((err, req, res, next) => {
