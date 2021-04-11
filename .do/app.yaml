@@ -1,0 +1,22 @@
+name: isa-project
+
+static_sites:
+  - name: frontend
+    github:
+      repo: lizhiquan/isa-project
+      branch: main
+      deploy_on_push: true
+    source_dir: client
+    routes:
+      - path: /
+    build_command: yarn run build
+
+services:
+  - name: backend
+    github:
+      repo: lizhiquan/isa-project
+      branch: main
+      deploy_on_push: true
+    source_dir: server
+    routes:
+      - path: /api

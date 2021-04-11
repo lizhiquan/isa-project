@@ -24,6 +24,13 @@ router.post(
   async (req, res, next) => {
     try {
       const { code, name } = req.body;
+      const [course] = await db('course').where({ code });
+      if (course) {
+        return res.status(409).json({
+          message: 'course already exists',
+          data: course,
+        });
+      }
       await db('course').insert({ code, name });
       res.sendStatus(201);
     } catch (error) {
