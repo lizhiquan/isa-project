@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { createCourse } from '../../api/apiService';
-import CreateCourse from '../Course/CreateCourse';
-import CreateHomework from '../Homework/CreateHomework';
+import Grid from "@material-ui/core/Grid";
+import { createCourse } from "../../api/apiService";
+import CreateCourse from "../Course/CreateCourse";
+import CreateHomework from "../Homework/CreateHomework";
+import { getToken } from "../../utils";
+import { Redirect } from "react-router-dom";
 
 export default function Admin({ onCoursesChange, courses }) {
   const handleCreateCourse = async (courseInfo) => {
@@ -13,6 +14,10 @@ export default function Admin({ onCoursesChange, courses }) {
       console.log(error);
     }
   };
+
+  if (!getToken()) {
+    return <Redirect to={"/login"} />;
+  }
 
   return (
     <Grid container spacing={3} component="main">
