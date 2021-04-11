@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     justifyContent: 'center',
+    margin: '0',
   },
   grid: {
     minWidth: '500px',
@@ -133,7 +134,7 @@ export default function HomeworkList({ isAdmin, courses, homework, onUpdateHomew
         ) : (
           <Grid item sm={12} md={6} className={classes.list}>
             {homework?.map((item) => (
-              <HomeworkItem key={item.id} isAdmin={false} courseID={courseID} homework={item}>
+              <HomeworkItem key={item.id} isAdmin={false} courseID={courseID} homeworkItem={item}>
                 {item.name}
               </HomeworkItem>
             ))}
