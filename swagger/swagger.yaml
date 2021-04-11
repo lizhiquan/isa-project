@@ -1,0 +1,320 @@
+swagger: "2.0"
+info:
+  description: "This is a homework management app that helps you manage your homework by different courses."
+  version: "1.0.0"
+  title: "Homework Manager"
+host: "vincentiz.me"
+basePath: "/api/v1"
+tags:
+- name: "course"
+  description: "Everything about your courses"
+- name: "homework"
+  description: "Everything about your homework"
+- name: "user"
+  description: "Operations about user"
+- name: "stat"
+  description: "API stats"
+schemes:
+- "https"
+paths:
+  /courses:
+    get:
+      operationId: "getCourses"
+      tags:
+      - "course"
+      summary: "Get all courses"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Course"
+    post:
+      operationId: "addCourse"
+      tags:
+      - "course"
+      summary: "Create a new course"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Course information"
+        required: true
+        schema:
+          $ref: "#/definitions/Course"
+      responses:
+        "201":
+          description: "successful operation"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+  /courses/{courseId}:
+    put:
+      operationId: "updateCourse"
+      tags:
+      - "course"
+      summary: "Update an existing course"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "courseId"
+        in: "path"
+        description: "ID of course that needs to be updated"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Course object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Course"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "course not found"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+    delete:
+      operationId: "deleteCourse"
+      tags:
+      - "course"
+      summary: "Delete an existing course"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "courseId"
+        in: "path"
+        description: "ID of course that needs to be deleted"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Course object that needs to be deleted"
+        required: true
+        schema:
+          $ref: "#/definitions/Course"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "course not found"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+
+  /homework:
+    get:
+      operationId: "getHomework"
+      tags:
+      - "homework"
+      summary: "Get all homework"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Homework"
+    post:
+      operationId: "addHomework"
+      tags:
+      - "homework"
+      summary: "Create a new homework"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Homework information"
+        required: true
+        schema:
+          $ref: "#/definitions/Homework"
+      responses:
+        "201":
+          description: "successful operation"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+  /homework/{homeworkId}:
+    put:
+      operationId: "updateHomework"
+      tags:
+      - "homework"
+      summary: "Update an existing homework"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "homeworkId"
+        in: "path"
+        description: "ID of homework that needs to be updated"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Homework object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Homework"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "homework not found"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+    delete:
+      operationId: "deleteHomework"
+      tags:
+      - "homework"
+      summary: "Delete an existing homework"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "homeworkId"
+        in: "path"
+        description: "ID of homework that needs to be deleted"
+        required: true
+        type: "integer"
+      - in: "body"
+        name: "body"
+        description: "Homework object that needs to be deleted"
+        required: true
+        schema:
+          $ref: "#/definitions/Course"
+      responses:
+        "204":
+          description: "successful operation"
+        "404":
+          description: "homework not found"
+        "401":
+          description: "invalid or missing authorization token"
+        "422":
+          description: "validation exception"
+      security:
+      - auth_key: []
+
+  /user/authenticate:
+    post:
+      operationId: "login"
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "body"
+        in: "body"
+        required: true
+        schema:
+          type: "object"
+          properties:
+            username:
+              type: "string"
+            password:
+              type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              token:
+                type: "string"
+        "401":
+          description: "Invalid username/password supplied"
+          
+  /stats:
+    get:
+      operationId: "getStats"
+      tags:
+      - "stat"
+      summary: "Get API stats"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "object"
+            properties:
+              id:
+                type: "integer"
+              endpoint:
+                type: "string"
+              method:
+                type: "string"
+              count:
+                type: "integer"
+        "401":
+          description: "invalid or missing authorization token"
+
+securityDefinitions:
+  auth_key:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+definitions:
+  Course:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      code:
+        type: "string"
+      name:
+        type: "string"
+  Homework:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      content:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "lesson"
+        - "lab"
+      due_date:
+        type: "string"
+        format: "date-time"
+      course_id:
+        type: "integer"
