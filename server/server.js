@@ -29,5 +29,6 @@ app.use((err, req, res, next) => {
 });
 
 const server = app.listen(config.port, function () {
+  console.log(process.env.NODE_ENV);
   console.log('Listening on port ' + server.address().port);
 });

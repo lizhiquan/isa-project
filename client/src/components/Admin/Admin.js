@@ -1,38 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getCourses, createCourse } from '../../api/apiService';
-import Course from '../Course/Course';
-import Homework from '../Homework/Homework';
+import { createCourse } from '../../api/apiService';
+import CreateCourse from '../Course/CreateCourse';
+import CreateHomework from '../Homework/CreateHomework';
 
-export default function Admin() {
-	const [courses, setCourses] = useState();
+export default function Admin({ onCoursesChange, courses }) {
+  const handleCreateCourse = async (courseInfo) => {
+    try {
+      await createCourse(courseInfo);
+      onCoursesChange();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-	const handleGetCourses = async () => {
-		try {
-			const res = await getCourses();
-			setCourses(res);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const handleCreateCourse = async (courseInfo) => {
-		try {
-			await createCourse(courseInfo);
-			handleGetCourses();
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		handleGetCourses();
-	}, []);
-
-	return (
-		<Grid container spacing={3} component="main">
-			<Course onCreate={handleCreateCourse} />
-			<Homework courses={courses} />
-		</Grid>
-	);
+  return (
+    <Grid container spacing={3} component="main">
+      <CreateCourse onCreate={handleCreateCourse} />
+      <CreateHomework courses={courses} />
+    </Grid>
+  );
 }
