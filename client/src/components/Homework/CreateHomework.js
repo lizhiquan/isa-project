@@ -42,8 +42,10 @@ export default function CreateHomework({ courses }) {
   const handleCreateHomework = async (homeworkInfo) => {
     try {
       await createHomework(homeworkInfo);
+      alert('Created homework successfully');
     } catch (error) {
       console.log(error);
+      alert('Error: Unable to create homework');
     }
   };
 

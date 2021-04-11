@@ -29,8 +29,10 @@ export default function HomeworkItem({ isAdmin, courses, course, onChangeCourse 
   const handleUpdateCourse = async () => {
     try {
       await updateCourse({ code, name }, course?.id);
+      alert('Course Succesfully Updated');
     } catch (error) {
       console.log(error);
+      alert('Error: course not updated');
     }
   };
 

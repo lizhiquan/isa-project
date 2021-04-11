@@ -4,13 +4,14 @@ import { createCourse } from '../../api/apiService';
 import CreateCourse from '../Course/CreateCourse';
 import CreateHomework from '../Homework/CreateHomework';
 
-export default function Admin({ onCoursesChange, courses }) {
+export default function Admin({ courses }) {
   const handleCreateCourse = async (courseInfo) => {
     try {
       await createCourse(courseInfo);
-      onCoursesChange();
+      alert('Created course sucessfully');
     } catch (error) {
       console.log(error);
+      alert('Error: failed to create course');
     }
   };
 

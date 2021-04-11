@@ -44,8 +44,10 @@ export default function HomeworkItem({
         return item.id !== homeworkItem.id;
       });
       onUpdateHomeworkList([...filteredList, { id: homeworkItem?.id, ...info }]);
+      alert('Homework updated sucessfully');
     } catch (error) {
       console.log(error);
+      alert('Error: Homework update failed');
     }
   };
 
