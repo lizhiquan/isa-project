@@ -10,6 +10,14 @@ static_sites:
     routes:
       - path: /
     build_command: yarn run build
+  - name: swagger
+    github:
+      repo: lizhiquan/isa-project
+      branch: main
+      deploy_on_push: true
+    source_dir: swagger
+    routes:
+      - path: /documentation
 
 services:
   - name: backend
