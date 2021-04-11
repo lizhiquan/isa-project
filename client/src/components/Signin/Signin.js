@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { loginUser } from '../../api/apiService';
+import React, { useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { loginUser } from "../../api/apiService";
+import { getToken } from "../../utils";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({ onSignIn }) {
   const classes = useStyles();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
@@ -34,12 +35,17 @@ export default function SignIn() {
     const data = { username, password };
     try {
       const res = await loginUser(data);
-      localStorage.setItem('token', res.token);
-      history.push('/admin');
+      localStorage.setItem("token", res.token);
+      onSignIn?.();
+      history.push("/admin");
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (getToken()) {
+    return <Redirect to={"/admin"} />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -84,7 +90,13 @@ export default function SignIn() {
               setPassword(e.target.value);
             }}
           />
-          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
             Sign In
           </Button>
         </form>

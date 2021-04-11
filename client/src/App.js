@@ -1,24 +1,22 @@
-import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-
-import HomeworkList from './components/Homework/HomeworkList';
-import Signin from './components/Signin/Signin';
-import CourseList from './components/Course/CourseList';
-import Admin from './components/Admin/Admin';
-import NavBar from './components/NavBar/NavBar';
-import { getCourses, getHomework } from './api/apiService';
-import { getToken } from './utils';
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import HomeworkList from "./components/Homework/HomeworkList";
+import Signin from "./components/Signin/Signin";
+import CourseList from "./components/Course/CourseList";
+import Admin from "./components/Admin/Admin";
+import NavBar from "./components/NavBar/NavBar";
+import { getCourses, getHomework } from "./api/apiService";
+import { getToken } from "./utils";
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(!!getToken());
   const [courses, setCourses] = useState();
   const [homework, setHomework] = useState();
-
-  const checkIsAdmin = () => {
-    if (getToken()) {
-      setIsAdmin(true);
-    }
-  };
 
   const handleGetCourses = async () => {
     try {
@@ -39,7 +37,6 @@ function App() {
   };
 
   useEffect(() => {
-    checkIsAdmin();
     handleGetCourses();
     handleGetHomework();
   }, []);
@@ -51,7 +48,7 @@ function App() {
         <Switch>
           <Route
             exact
-            path={'/'}
+            path={"/"}
             render={() => (
               <HomeworkList
                 isAdmin={isAdmin}
@@ -61,17 +58,23 @@ function App() {
               />
             )}
           />
-          <Route exact path={'/courses'} render={() => <CourseList isAdmin={isAdmin} courses={courses} />} />
-          <Route exact path={'/login'} render={() => <Signin onIsAdmin={setIsAdmin} />} />
-          {isAdmin ? (
-            <Route
-              exact
-              path={'/admin'}
-              render={() => <Admin onCoursesChange={handleGetCourses} courses={courses} />}
-            />
-          ) : (
-            <Redirect to={'/login'} />
-          )}
+          <Route
+            exact
+            path={"/courses"}
+            render={() => <CourseList isAdmin={isAdmin} courses={courses} />}
+          />
+          <Route
+            exact
+            path={"/login"}
+            render={() => <Signin onSignIn={() => setIsAdmin(true)} />}
+          />
+          <Route
+            exact
+            path={"/admin"}
+            render={() => (
+              <Admin onCoursesChange={handleGetCourses} courses={courses} />
+            )}
+          />
         </Switch>
       </Router>
     </div>

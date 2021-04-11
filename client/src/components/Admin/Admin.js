@@ -14,6 +14,10 @@ export default function Admin({ courses }) {
     }
   };
 
+  if (!getToken()) {
+    return <Redirect to={'/login'} />;
+  }
+
   return (
     <Grid container spacing={3} component="main">
       <CreateCourse onCreate={handleCreateCourse} />
