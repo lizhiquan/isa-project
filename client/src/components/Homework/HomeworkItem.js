@@ -22,7 +22,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HomeworkItem({ isAdmin, courseID, homeworkList, homeworkItem, onUpdateHomeworkList }) {
+export default function HomeworkItem({
+  isAdmin,
+  courseID,
+  homeworkList,
+  homeworkItem,
+  onUpdateHomeworkList,
+  onDeleteHomework,
+}) {
   const classes = useStyles();
   const [dueDate, setDueDate] = useState(homeworkItem?.due_date.split('T')[0]);
   const [type, setType] = useState(homeworkItem?.type);
@@ -33,7 +40,10 @@ export default function HomeworkItem({ isAdmin, courseID, homeworkList, homework
     const info = { name, content, type, due_date: dueDate, course_id: courseID };
     try {
       await updateHomework(info, homeworkItem?.id);
-      onUpdateHomeworkList([...homeworkList, { id: homeworkItem?.id, ...info }]);
+      const filteredList = homeworkList.filter((item) => {
+        return item.id !== homeworkItem.id;
+      });
+      onUpdateHomeworkList([...filteredList, { id: homeworkItem?.id, ...info }]);
     } catch (error) {
       console.log(error);
     }
@@ -44,10 +54,9 @@ export default function HomeworkItem({ isAdmin, courseID, homeworkList, homework
       const updatedHomeworkList = homeworkList.filter((item) => {
         return item.id !== homeworkItem.id;
       });
-      console.log('BEFORE', homeworkList);
-      console.log('AFTER', updatedHomeworkList);
-      // await deleteHomework(homeworkItem?.id);
+      await deleteHomework(homeworkItem?.id);
       onUpdateHomeworkList([...updatedHomeworkList]);
+      onDeleteHomework('');
     } catch (error) {
       console.log(error);
     }
@@ -64,8 +73,6 @@ export default function HomeworkItem({ isAdmin, courseID, homeworkList, homework
           label="Homework Name"
           size="small"
           variant="outlined"
-          // validators={['required']}
-          // errorMessages={['This field is required']}
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
@@ -82,8 +89,6 @@ export default function HomeworkItem({ isAdmin, courseID, homeworkList, homework
           rows={6}
           value={content}
           onChange={(event) => setContent(event.target.value)}
-          // validators={['required']}
-          // errorMessages={['This field is required']}
         />
       </Grid>
       <Grid item xs={12} md={12}>
@@ -96,8 +101,6 @@ export default function HomeworkItem({ isAdmin, courseID, homeworkList, homework
           size="small"
           variant="outlined"
           type="date"
-          // validators={['required']}
-          // errorMessages={['This field is required']}
           value={dueDate?.split('T')[0]}
           onChange={(event) => setDueDate(event.target.value)}
         />

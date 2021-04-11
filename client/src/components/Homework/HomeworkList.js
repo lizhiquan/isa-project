@@ -108,18 +108,23 @@ export default function HomeworkList({ isAdmin, courses, homework, onUpdateHomew
 
             <Grid item sm={12} md={6} className={classes.list}>
               {selectedHomework?.length > 0 ? (
-                selectedHomework?.map((item) => (
-                  <HomeworkItem
-                    key={item.id}
-                    isAdmin={isAdmin}
-                    courseID={courseID}
-                    homeworkItem={item}
-                    homeworkList={homework}
-                    onUpdateHomeworkList={onUpdateHomeworkList}
-                  >
-                    {item.name}
-                  </HomeworkItem>
-                ))
+                selectedHomework?.map((item) => {
+                  console.log(item.id);
+
+                  return (
+                    <HomeworkItem
+                      key={item.id}
+                      isAdmin={isAdmin}
+                      courseID={courseID}
+                      homeworkItem={item}
+                      homeworkList={homework}
+                      onUpdateHomeworkList={onUpdateHomeworkList}
+                      onDeleteHomework={setSelectedHomework}
+                    >
+                      {item.name}
+                    </HomeworkItem>
+                  );
+                })
               ) : (
                 <Typography component="h1" variant="h4">
                   No Homework

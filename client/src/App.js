@@ -43,7 +43,6 @@ function App() {
     handleGetHomework();
   }, []);
 
-  console.log('ADMIN', isAdmin);
   return (
     <div className="App">
       <NavBar />
