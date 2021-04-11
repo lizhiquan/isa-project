@@ -5,10 +5,11 @@ import CreateHomework from '../Homework/CreateHomework';
 import { getToken } from '../../utils';
 import { Redirect } from 'react-router-dom';
 
-export default function Admin({ courses }) {
+export default function Admin({ courses, onCoursesChange }) {
   const handleCreateCourse = async (courseInfo) => {
     try {
       await createCourse(courseInfo);
+      onCoursesChange();
       alert('Created course sucessfully');
     } catch (error) {
       console.log(error);
