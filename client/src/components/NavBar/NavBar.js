@@ -4,11 +4,11 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    width: '100%',
+    // flexGrow: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -49,7 +49,7 @@ export default function NavBar() {
             color="inherit"
             onClick={() => {
               localStorage.setItem('token', '');
-              window.location.href = '/Login';
+              window.location.href = '/login';
             }}
           >
             Logout
