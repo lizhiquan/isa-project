@@ -35,6 +35,9 @@ router.post(
       await db('homework').insert({ name, content, type, due_date, course_id });
       res.sendStatus(201);
     } catch (error) {
+      if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+        return res.status(422).json({ message: 'invalid course_id' });
+      }
       next(error);
     }
   },
@@ -60,6 +63,9 @@ router.put(
         .update({ name, content, type, due_date, course_id });
       res.sendStatus(nAffectedRows ? 204 : 404);
     } catch (error) {
+      if (error.code === 'ER_NO_REFERENCED_ROW_2') {
+        return res.status(422).json({ message: 'invalid course_id' });
+      }
       next(error);
     }
   },
