@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,7 +19,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NavBar() {
-  const history = useHistory();
   const classes = useStyles();
 
   return (
@@ -31,14 +29,14 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Homework Manager
           </Typography>
+          <Button color="inherit" onClick={() => (window.location.href = '/courses')}>
+            Courses
+          </Button>
           <Button color="inherit" onClick={() => (window.location.href = '/')}>
             Homework
           </Button>
           <Button color="inherit" onClick={() => (window.location.href = '/admin')}>
             Admin
-          </Button>
-          <Button color="inherit" onClick={() => (window.location.href = '/login')}>
-            Login
           </Button>
         </Toolbar>
       </AppBar>
