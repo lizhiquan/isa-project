@@ -29,6 +29,9 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Homework Manager
           </Typography>
+          <Button color="inherit" onClick={() => (window.location.href = '/stats')}>
+            Statistics
+          </Button>
           <Button color="inherit" onClick={() => (window.location.href = '/courses')}>
             Courses
           </Button>
