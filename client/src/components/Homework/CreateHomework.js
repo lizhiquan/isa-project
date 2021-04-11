@@ -41,8 +41,7 @@ export default function CreateHomework({ courses }) {
 
   const handleCreateHomework = async (homeworkInfo) => {
     try {
-      const res = await createHomework(homeworkInfo);
-      console.log(res);
+      await createHomework(homeworkInfo);
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +108,6 @@ export default function CreateHomework({ courses }) {
             className={classes.input}
             value={courseID ?? ''}
             onChange={(e) => {
-              console.log(e.target);
               setCourseID(e.target.value);
             }}
           >

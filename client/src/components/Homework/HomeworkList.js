@@ -109,8 +109,6 @@ export default function HomeworkList({ isAdmin, courses, homework, onUpdateHomew
             <Grid item sm={12} md={6} className={classes.list}>
               {selectedHomework?.length > 0 ? (
                 selectedHomework?.map((item) => {
-                  console.log(item.id);
-
                   return (
                     <HomeworkItem
                       key={item.id}
