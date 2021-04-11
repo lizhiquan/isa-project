@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from '../utils';
 
 const apiService = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://vincentiz.me',
 });
 
 export async function loginUser(userInfo) {
